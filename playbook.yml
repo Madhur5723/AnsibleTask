@@ -6,18 +6,12 @@
     - name: Determine OS name
       set_fact:
         file_name: "{{ ansible_distribution }}"
-<<<<<<< HEAD
-
-=======
->>>>>>> 6024b2225c9a70c2407950a2e7ff6f22c106ccae
+ 
     - name: Create Task2 directory
       ansible.builtin.file:
         path: "/home/einfochips/Desktop/Task2"
         state: directory
-<<<<<<< HEAD
-
-=======
->>>>>>> 6024b2225c9a70c2407950a2e7ff6f22c106ccae
+ 
     - name: Create OS info file
       ansible.builtin.copy:
         content: "{{ ansible_facts | to_nice_json }}"
