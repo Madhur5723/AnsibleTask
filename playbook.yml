@@ -1,23 +1,16 @@
 ---
-- name: Ubuntu Configuration Playbook
-  hosts: host
+- name: Create OS info file
+  hosts: localhost
   gather_facts: yes
-  become: yes
-  
   tasks:
-    - name: Ensure a directory exists for storing OS 
+    - name: Determine OS name
+      set_fact:
+        file_name: "{{ ansible_distribution }}"
+    - name: Create Task2 directory
       ansible.builtin.file:
-        path: /home/users
+        path: "/home/einfochips/Desktop/Task2"
         state: directory
-
-    - name: OS facts
-      ansible.builtin.setup:
-
-    - name: Create OS file
+    - name: Create OS info file
       ansible.builtin.copy:
-        content: |
-          OS: {{ ansible_distribution }}
-          Version: {{ ansible_distribution_version }}
-          Architecture: {{ ansible_architecture }}
-          Kernel: {{ ansible_kernel }}
-        dest: "/home/users/os_details.txt"
+        content: "{{ ansible_facts | to_nice_json }}"
+        dest: "/home/einfochips/Desktop/Task2/{{ file_name }}.txt"
